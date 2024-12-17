@@ -10,11 +10,6 @@ namespace HairSalonManagement.Models
 		public DateTime AppointmentDate { get; set; }
 		public string ServiceName { get; set; }
 
-		// Navigation Properties
-		[ForeignKey("SalonID")]
-		public Salon Salon { get; set; } // Salon ile ilişki
-
-		[ForeignKey("EmployeeID")]
-		public Employee Employee { get; set; } // Employee ile ilişki
+		
 	}
 }

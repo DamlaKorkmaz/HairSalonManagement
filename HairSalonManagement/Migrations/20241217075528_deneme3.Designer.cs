@@ -11,14 +11,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HairSalonManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241213134627_second")]
-    partial class second
+    [Migration("20241217075528_deneme3")]
+    partial class deneme3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -47,11 +48,7 @@ namespace HairSalonManagement.Migrations
 
                     b.HasKey("AppointmentID");
 
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("SalonID");
-
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Employee", b =>
@@ -81,7 +78,7 @@ namespace HairSalonManagement.Migrations
 
                     b.HasIndex("SalonID");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Salon", b =>
@@ -110,7 +107,7 @@ namespace HairSalonManagement.Migrations
 
                     b.HasKey("SalonID");
 
-                    b.ToTable("Salons");
+                    b.ToTable("Salons", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Service", b =>
@@ -126,14 +123,15 @@ namespace HairSalonManagement.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("ServiceID");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.User", b =>
@@ -162,37 +160,16 @@ namespace HairSalonManagement.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("HairSalonManagement.Models.Appointment", b =>
-                {
-                    b.HasOne("HairSalonManagement.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HairSalonManagement.Models.Salon", "Salon")
-                        .WithMany()
-                        .HasForeignKey("SalonID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Salon");
+                    b.ToTable("Users", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Employee", b =>
                 {
-                    b.HasOne("HairSalonManagement.Models.Salon", "Salon")
+                    b.HasOne("HairSalonManagement.Models.Salon", null)
                         .WithMany("Employees")
                         .HasForeignKey("SalonID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Salon");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Salon", b =>
