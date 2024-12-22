@@ -6,6 +6,7 @@
 
 
     <a asp-action="HizmetEkle">Yeni Hizmet Ekle</a>
+
 <div class="alert-danger"> @TempData["msj"]</div>
 <table class="table">
     <thead>
@@ -38,6 +39,8 @@
                     <a asp-action="HizmetDüzenle" asp-route-id="@item.ServiceID">Hizmet Düzenle</a> |
                     <a asp-action="HizmetDetay" asp-route-id="@item.ServiceID">Hizmet Detay</a> |
                     <a asp-action="HizmetSil" asp-route-id="@item.ServiceID">Hizmet Sil</a>
+                    <a asp-action="ServiceDetails" asp-route-serviceId="@item.ServiceID" class="btn btn-primary">Çalışan Ekle</a>
+
             </td>
         </tr>
 }

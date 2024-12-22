@@ -13,5 +13,8 @@ namespace HairSalonManagement.Models
 		// Navigation Property
 		[ForeignKey("SalonID")]
 		public Salon Salon { get; set; } // Salon ile ilişki
+
+		public ICollection<EmployeeService> EmployeeServices { get; set; }
+
 	}
 }

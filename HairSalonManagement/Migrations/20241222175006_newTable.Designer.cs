@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HairSalonManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241222175006_newTable")]
+    partial class newTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,21 +79,6 @@ namespace HairSalonManagement.Migrations
                     b.HasIndex("SalonID");
 
                     b.ToTable("Employees", "public");
-                });
-
-            modelBuilder.Entity("HairSalonManagement.Models.EmployeeService", b =>
-                {
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ServiceID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("EmployeeID", "ServiceID");
-
-                    b.HasIndex("ServiceID");
-
-                    b.ToTable("EmployeeServices", "public");
                 });
 
             modelBuilder.Entity("HairSalonManagement.Models.Salon", b =>
@@ -186,38 +174,9 @@ namespace HairSalonManagement.Migrations
                     b.Navigation("Salon");
                 });
 
-            modelBuilder.Entity("HairSalonManagement.Models.EmployeeService", b =>
-                {
-                    b.HasOne("HairSalonManagement.Models.Employee", "Employee")
-                        .WithMany("EmployeeServices")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HairSalonManagement.Models.Service", "Service")
-                        .WithMany("EmployeeServices")
-                        .HasForeignKey("ServiceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("HairSalonManagement.Models.Employee", b =>
-                {
-                    b.Navigation("EmployeeServices");
-                });
-
             modelBuilder.Entity("HairSalonManagement.Models.Salon", b =>
                 {
                     b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("HairSalonManagement.Models.Service", b =>
-                {
-                    b.Navigation("EmployeeServices");
                 });
 #pragma warning restore 612, 618
         }

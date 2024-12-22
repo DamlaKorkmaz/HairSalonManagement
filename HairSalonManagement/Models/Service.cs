@@ -17,5 +17,8 @@ namespace HairSalonManagement.Models
 		[Required]
 		[Range(1, 480)]
 		public int DurationMinutes { get; set; }
+
+		public ICollection<EmployeeService> EmployeeServices { get; set; }
+
 	}
 }

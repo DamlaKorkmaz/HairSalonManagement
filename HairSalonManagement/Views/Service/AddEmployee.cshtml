@@ -1,0 +1,19 @@
+﻿@model HairSalonManagement.Models.Service
+
+<h2>@ViewBag.Service.Name - Çalışan Ekle</h2>
+
+<form asp-action="AddEmployee" method="post">
+    <input type="hidden" name="serviceId" value="@ViewBag.Service.ServiceID" />
+
+    <div>
+        <label for="employee">Çalışan Seç:</label>
+        <select name="employeeId" id="employee">
+            @foreach (var employee in ViewBag.Employees)
+            {
+                <option value="@employee.EmployeeID">@employee.Name (@employee.ExpertiseArea)</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit">Ekle</button>
+</form>
