@@ -1,20 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace HairSalonManagement.Models
+namespace NewHairSalon.Models
 {
 	public class Employee
 	{
-		public int EmployeeID { get; set; } // Primary Key
-		public int SalonID { get; set; } // Foreign Key
-		public string Name { get; set; }
-		public string Specialization { get; set; }
-		public string AvailabilityHours { get; set; }
 
-		// Navigation Property
-		[ForeignKey("SalonID")]
-		public Salon Salon { get; set; } // Salon ile ilişki
+ public int EmployeeID { get; set; }
 
-		public ICollection<EmployeeService> EmployeeServices { get; set; }
+    [Required]
+    [MaxLength(100)]
+    [Display(Name = "Çalışan Adı")]
+    public string FirstName { get; set; }
 
+    [Required]
+    [MaxLength(100)]
+    [Display(Name = "Çalışan Soyadı")]
+    public string LastName { get; set; }
+
+    [Display(Name = "Uzmanlık Alanları")]
+		public ICollection<Service>? Hizmetler { get; set; }
 	}
 }
+
