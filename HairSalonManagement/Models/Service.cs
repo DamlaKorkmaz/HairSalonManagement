@@ -1,24 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HairSalonManagement.Models
+namespace HairSalon.Models
 {
 	public class Service
 	{
 		public int ServiceID { get; set; }
 
 		[Required]
-		[MaxLength(100)]
+		[MaxLength(150)]
+		[Display(Name = "Hizmet Adı")]
 		public string Name { get; set; }
 
 		[Required]
-		[Range(0.01, 9999)]
-		public decimal Price { get; set; }
+		[Display(Name = "Süre (Dakika)")]
+		public int Duration { get; set; }
 
 		[Required]
-		[Range(1, 480)]
-		public int DurationMinutes { get; set; }
-
-		public ICollection<EmployeeService> EmployeeServices { get; set; }
-
+		[Display(Name = "Ücret")]
+		public decimal Price { get; set; }
 	}
 }
