@@ -5,7 +5,7 @@
 namespace HairSalonManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class newTable : Migration
+    public partial class Third : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore; // DbContext için gerekli
+using HairSalonManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HairSalonManagement
 {
@@ -8,20 +9,33 @@ namespace HairSalonManagement
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
-
-			// Add DbContext
+			// Veritabanı bağlantısını ekle
 			builder.Services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+			// Session'u ekle
+			builder.Services.AddSession();
+			builder.Services.AddDistributedMemoryCache();
+
+			builder.Services.AddDistributedMemoryCache(); // Bellek tabanlı cache
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum süresi (30 dakika)
+				options.Cookie.HttpOnly = true; // Güvenlik için yalnızca HTTP üzerinden erişim
+				options.Cookie.IsEssential = true;
+			});
+			// MVC Servislerini ekle
+			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
+			// Session'u aktif et
+			app.UseSession();
+
+			// HTTP pipeline'ı yapılandır
 			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 
@@ -32,6 +46,7 @@ namespace HairSalonManagement
 
 			app.UseAuthorization();
 
+			// Controller route'u
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");

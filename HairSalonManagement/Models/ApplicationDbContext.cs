@@ -1,35 +1,46 @@
-﻿using HairSalonManagement.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class ApplicationDbContext : DbContext
+namespace HairSalonManagement.Models
 {
-	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
-	public DbSet<User> Users { get; set; }
-	public DbSet<Salon> Salons { get; set; }
-	public DbSet<Employee> Employees { get; set; }
-	public DbSet<Service> Services { get; set; }
-	public DbSet<Appointment> Appointments { get; set; }
-	public DbSet<EmployeeService> EmployeeServices { get; set; } // Ara tablo
-
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	public class ApplicationDbContext : DbContext
 	{
-		// PostgreSQL'de varsayılan şema
-		modelBuilder.HasDefaultSchema("public");
+		public DbSet<Kullanici> Kullanicilar { get; set; }
+		public DbSet<Uzman> Uzmanlar { get; set; }
+		public DbSet<Randevu> Randevular { get; set; }
 
-		// Many-to-Many Relationship: Employee <-> Service
-		modelBuilder.Entity<EmployeeService>()
-			.HasKey(es => new { es.EmployeeID, es.ServiceID }); // Composite Key
+		// Parametreli yapıcı eklendi
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+			: base(options)  // DbContextOptions ile base sınıfı başlatıyoruz
+		{
+		}
 
-		modelBuilder.Entity<EmployeeService>()
-			.HasOne(es => es.Employee)
-			.WithMany(e => e.EmployeeServices)
-			.HasForeignKey(es => es.EmployeeID);
+		public ApplicationDbContext()
+		{
+		}
 
-		modelBuilder.Entity<EmployeeService>()
-			.HasOne(es => es.Service)
-			.WithMany(s => s.EmployeeServices)
-			.HasForeignKey(es => es.ServiceID);
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			if (!optionsBuilder.IsConfigured)
+			{
+				optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=KuaforSalonDb;Trusted_Connection=True;");
+			}
+		}
 
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			// Randevu ile Kullanıcı ilişkisi
+			modelBuilder.Entity<Randevu>()
+				.HasOne(r => r.Kullanici)
+				.WithMany(k => k.Randevular)
+				.HasForeignKey(r => r.KullaniciId);
+
+			// Randevu ile Uzman ilişkisi
+			/*modelBuilder.Entity<Randevu>()
+				.HasOne(r => r.Uzman)
+				.WithMany(u => u.Randevular)
+				.HasForeignKey(r => r.UzmanId);*/
+		}
 	}
 }

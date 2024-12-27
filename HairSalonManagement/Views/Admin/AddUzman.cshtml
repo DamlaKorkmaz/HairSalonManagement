@@ -1,0 +1,24 @@
+﻿@model HairSalonManagement.Models.Uzman
+
+<div class="container mt-4">
+    <h2>Yeni Uzman Ekle</h2>
+    <form asp-action="AddUzman" method="post">
+        <div class="mb-3">
+            <label for="Isim" class="form-label">İsim</label>
+            <input type="text" class="form-control" id="Isim" name="Isim" required />
+        </div>
+        <div class="mb-3">
+            <label for="Soyisim" class="form-label">Soyisim</label>
+            <input type="text" class="form-control" id="Soyisim" name="Soyisim" required />
+        </div>
+        <div class="mb-3">
+            <label for="UzmanlikAlani" class="form-label">Uzmanlık Alanı</label>
+            <input type="text" class="form-control" id="UzmanlikAlani" name="UzmanlikAlani" required />
+        </div>
+        <div class="mb-3">
+            <label for="CalismaSaatAraligi" class="form-label">Çalışma Saat Aralığı</label>
+            <input type="text" class="form-control" id="CalismaSaatAraligi" name="CalismaSaatAraligi" placeholder="09:00-18:00" required />
+        </div>
+        <button type="submit" class="btn btn-success">Ekle</button>
+    </form>
+</div>

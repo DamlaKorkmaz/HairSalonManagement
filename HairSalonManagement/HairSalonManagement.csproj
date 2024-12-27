@@ -4,15 +4,20 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>29770934-97d5-4570-8ad9-0a5ce955b868</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Admin\NewFolder1\**" />
     <Compile Remove="Views\NewFolder1\**" />
     <Compile Remove="Views\NewFolder2\**" />
+    <Content Remove="Views\Admin\NewFolder1\**" />
     <Content Remove="Views\NewFolder1\**" />
     <Content Remove="Views\NewFolder2\**" />
+    <EmbeddedResource Remove="Views\Admin\NewFolder1\**" />
     <EmbeddedResource Remove="Views\NewFolder1\**" />
     <EmbeddedResource Remove="Views\NewFolder2\**" />
+    <None Remove="Views\Admin\NewFolder1\**" />
     <None Remove="Views\NewFolder1\**" />
     <None Remove="Views\NewFolder2\**" />
   </ItemGroup>
@@ -29,6 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Views\Admin\Uzman\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

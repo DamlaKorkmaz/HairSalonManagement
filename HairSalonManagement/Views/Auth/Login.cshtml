@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<h2>Giriş Yap</h2>
+
+<form method="post" asp-action="Login">
+    <div class="mb-3">
+        <label for="email" class="form-label">E-posta:</label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="sifre" class="form-label">Şifre:</label>
+        <input type="password" id="sifre" name="sifre" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+</form>
+
+<p class="text-danger">@TempData["ErrorMessage"]</p>
