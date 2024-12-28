@@ -9,7 +9,7 @@ body {
 .background_img {
     margin-top: -20px;
     background-image: url('/images/anasayfa1.jpg');
-    height: 80vh; /* Use full viewport height */
+    height: 90vh; /* Use full viewport height */
     background-position: center;
     background-size: cover;
     display: table;

@@ -10,7 +10,7 @@ namespace HairSalonManagement.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 
-		private const string AdminEmail = "admin@gmail.com";
+		private const string AdminEmail = "b221210098@sakarya.edu.tr";
 		private const string AdminPassword = "sau";
 
 		public AuthController(ApplicationDbContext context)

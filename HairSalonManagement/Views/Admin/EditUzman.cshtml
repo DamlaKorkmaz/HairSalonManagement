@@ -1,0 +1,28 @@
+﻿@model HairSalonManagement.Models.Uzman
+
+<h2>Uzman Düzenle</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="EditUzman" method="post">
+    <input type="hidden" asp-for="UzmanId" />
+    <div class="form-group">
+        <label asp-for="Isim"></label>
+        <input asp-for="Isim" class="form-control" />
+        <span asp-validation-for="Isim" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Soyisim"></label>
+        <input asp-for="Soyisim" class="form-control" />
+        <span asp-validation-for="Soyisim" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CalismaSaatAraligi"></label>
+        <input asp-for="CalismaSaatAraligi" class="form-control" />
+        <span asp-validation-for="CalismaSaatAraligi" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
