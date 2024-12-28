@@ -1,0 +1,40 @@
+﻿@model HairSalonManagement.Models.Randevu
+
+@{
+    ViewData["Title"] = "Randevu Oluştur";
+}
+
+<div class="container mt-4">
+    <h2>Randevu Al</h2>
+    <form asp-action="CreateRandevu" method="post">
+        <div class="form-group">
+            <label for="Isim">Adınız</label>
+            <input type="text" class="form-control" id="Isim" name="Isim" value="@Model?.Isim" required />
+        </div>
+        <div class="form-group">
+            <label for="Soyisim">Soyadınız</label>
+            <input type="text" class="form-control" id="Soyisim" name="Soyisim" value="@Model?.Soyisim" required />
+        </div>
+        <div class="form-group">
+            <label for="Telefon">Telefon Numaranız</label>
+            <input type="text" class="form-control" id="Telefon" name="Telefon" value="@Model?.Telefon" required />
+        </div>
+        <div class="form-group">
+            <label for="UzmanIsim">Uzman Seçin</label>
+            <select class="form-control" id="UzmanIsim" name="UzmanIsim">
+                @foreach (var uzman in ViewBag.Uzmanlar)
+                {
+                    <option value="@uzman.Isim">@uzman.Isim</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Randevu Al</button>
+    </form>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+</div>

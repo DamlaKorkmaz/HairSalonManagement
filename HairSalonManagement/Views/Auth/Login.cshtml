@@ -2,19 +2,24 @@
     ViewBag.Title = "Giriş Yap";
 }
 
-<h2>Giriş Yap</h2>
 
-<form asp-action="Login" method="post">
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" required />
-    </div>
-    <div>
-        <label>Şifre</label>
-        <input type="password" name="password" required />
-    </div>
-    <button type="submit">Giriş Yap</button>
-</form>
+
+
+
+<div class="container mt-4">
+    <h2>Giriş Yap!</h2>
+    <form asp-action="Login" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">E-Mail</label>
+            <input type="email" class="form-control" id="email" name="email" required />
+        </div>
+        <div class="mb-3">
+            <label for="Sifre" class="form-label">Şifre</label>
+            <input type="password" class="form-control" id="password" name="password" required />
+        </div>
+        <button type="submit" class="btn btn-success">Giriş Yap</button>
+    </form>
+</div>
 
 @if (ViewBag.Error != null)
 {

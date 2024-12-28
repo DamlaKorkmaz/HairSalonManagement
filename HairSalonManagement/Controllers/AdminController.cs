@@ -35,7 +35,11 @@ namespace HairSalonManagement.Controllers
 			var kullanici = await _context.Kullanicilar.ToListAsync();
 			return View(kullanici);
 		}
-
+		public IActionResult ManageRandevu()
+		{
+			var randevular = _context.Randevular.ToList(); // Randevuları alıyoruz
+			return View(randevular);
+		}
 		// Uzman ekleme sayfasını göster
 		[HttpGet]
 		public IActionResult AddUzman()

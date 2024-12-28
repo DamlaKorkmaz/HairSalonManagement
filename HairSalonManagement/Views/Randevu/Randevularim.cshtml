@@ -1,0 +1,32 @@
+﻿@model IEnumerable<HairSalonManagement.Models.Randevu>
+
+<h2>Randevularım</h2>
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["InfoMessage"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>İsim</th>
+            <th>Soyisim</th>
+            <th>Telefon</th>
+            <th>Uzman</th>
+            <th>Randevu Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.Isim</td>
+                <td>@randevu.Soyisim</td>
+                <td>@randevu.Telefon</td>
+                <td>@randevu.UzmanIsim</td>
+                <td>@randevu.RandevuTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>

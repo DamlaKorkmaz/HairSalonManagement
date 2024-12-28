@@ -74,13 +74,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hakkımızda">Hakkımızda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Register">Kaydol</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hizmetlerimiz">Hizmetlerimiz</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Randevu" asp-action="Al">Randevu Al</a>
+                            <a class="nav-link text-dark" asp-controller="Randevu" asp-action="CreateRandevu">Randevu Al</a>
                         </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Randevu" asp-action="Randevularim">Randevularım</a>
+                            </li>
                             <li class="nav-item">
                                 <span class="nav-link text-dark">Hoş geldin, @User.Identity.Name!</span>
                             </li>
@@ -94,6 +99,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">Giriş Yap</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Auth" asp-action="Register">Kayıt Ol</a>
                             </li>
                         }
                     </ul>

@@ -7,6 +7,8 @@ namespace HairSalonManagement.Models
 		public DbSet<Kullanici> Kullanicilar { get; set; }
 		public DbSet<Uzman> Uzmanlar { get; set; }
 		public DbSet<Randevu> Randevular { get; set; }
+		public DbSet<Hizmet> Hizmetler { get; set; }
+
 
 		// Parametreli yapıcı eklendi
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

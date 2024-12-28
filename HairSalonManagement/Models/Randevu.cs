@@ -1,4 +1,6 @@
-﻿namespace HairSalonManagement.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HairSalonManagement.Models
 {
 	using System.ComponentModel.DataAnnotations;
 
@@ -6,16 +8,19 @@
 	{
 		[Key]
 		public int RandevuId { get; set; }
-
 		[Required]
-		public int KullaniciId { get; set; }
-		public Kullanici Kullanici { get; set; }
-
+		public string Isim { get; set; }
 		[Required]
-		public int UzmanId { get; set; }
-		public Uzman Uzman { get; set; }
-
+		public string Soyisim { get; set; }
 		[Required]
-		public DateTime Tarih { get; set; } // Randevu tarihi ve saati
+		public string Telefon { get; set; }
+		[Required]
+		public string KullaniciEmail { get; set; }
+		[Required]
+		public string UzmanIsim { get; set; }  // Uzman adı
+		[Required]
+		public DateTime RandevuTarihi { get; set; }
+		
 	}
 }
+

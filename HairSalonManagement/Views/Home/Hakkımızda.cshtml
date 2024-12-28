@@ -1,6 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Hakkımızda";
-}
-<h1>@ViewData["Title"]</h1>
+﻿<!DOCTYPE html> <html lang="tr"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Hakkında</title> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <style> body { background-color: #f8f9fa; font-family: Arial, sans-serif; margin: 0; padding: 0; } .background_imge { margin: 0; /* Kenar boşluklarını kaldır */ padding: 0; /* Kenar boşluklarını kaldır */ background-image: url('/images/hakkımızda.jpg'); height: 30vh; /* Görüntü yüksekliği */ background-position: center; background-size: cover; display: block; width: 100%; position: relative; } .containere { margin-top: 60px; } .image-section img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; } .card { border: 1px solid #ddd; border-radius: 8px; } .card-body h1 { font-size: 2.5rem; color: deeppink; } .card-body p, .card-body ul { font-size: 1.1rem; } .card-body ul { list-style-type: square; } </style> </head> <body> <div class="containere"> <!-- Resim Bölümü --> <div class="background_imge"> <div class="inner_text" style="text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"> <h1> Hakkımızda </h1> </div> </div> </div> <br /> <br />
+    <!-- Metin Bölümü -->
+    <div class="card">
+        <div class="card-body">
+            <br />
+            <p>
+                Hoş geldiniz! Biz, modern ve kullanıcı dostu bir saç salonu yönetim sistemi sağlamak amacıyla yola çıktık.
+                Hedefimiz, kullanıcıların kolayca randevu alabilmesi, hizmetleri görüntüleyebilmesi ve uzmanlar ile etkileşime geçebilmesidir.
+            </p>
+            <p>
+                Sistemimiz, hem kadın hem de erkek kuaför salonları için ideal bir çözüm sunmaktadır. Kullanıcılar,
+                salon hizmetlerini görüntüleyebilir, randevularını oluşturabilir ve uzmanlar ile kişisel tercihleri doğrultusunda
+                iletişim kurabilirler.
+            </p>
+            <p>
+                Kullanıcı dostu bir arayüzle tasarlanmış olan sistemimiz, aynı zamanda AI entegrasyonu ile kullanıcıların
+                yüzlerine uygun saç stilleri önerileri sunmaktadır. Amacımız, her müşterinin en iyi deneyimi yaşamasını sağlamaktır.
+            </p>
+        </div>
+    </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

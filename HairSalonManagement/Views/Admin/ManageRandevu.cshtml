@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HairSalonManagement.Models.Randevu>
+
+@{
+    ViewData["Title"] = "Randevu Yönetimi";
+}
+
+<div class="container mt-4">
+    <h2>Randevu Yönetimi</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Soyisim</th>
+                <th>Telefon</th>
+                <th>Uzman</th> <!-- Uzman isim alanı -->
+                <th>Randevu Tarihi</th> <!-- Randevu tarihi -->
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var randevu in Model)
+            {
+                <tr>
+                    <td>@randevu.Isim</td>
+                    <td>@randevu.Soyisim</td>
+                    <td>@randevu.Telefon</td>
+                    <td>@randevu.UzmanIsim</td> <!-- Uzman ismini burada gösteriyoruz -->
+                    <td>@randevu.RandevuTarihi.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>
+                        <a href="/Admin/EditRandevu/@randevu.RandevuId" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a href="/Admin/DeleteRandevu/@randevu.RandevuId" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

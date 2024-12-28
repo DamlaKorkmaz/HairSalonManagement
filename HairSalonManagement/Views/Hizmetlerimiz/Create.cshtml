@@ -1,0 +1,22 @@
+﻿@model HairSalonManagement.Models.Hizmet
+
+<h2>Yeni Hizmet Ekle</h2>
+<form method="post">
+    <div class="form-group">
+        <label for="Ad">Hizmet Adı</label>
+        <input type="text" id="Ad" name="Ad" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Aciklama">Açıklama</label>
+        <textarea id="Aciklama" name="Aciklama" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="ResimUrl">Resim URL</label>
+        <input type="text" id="ResimUrl" name="ResimUrl" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Fiyat">Fiyat</label>
+        <input type="number" id="Fiyat" name="Fiyat" class="form-control" step="0.01" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Ekle</button>
+</form>
