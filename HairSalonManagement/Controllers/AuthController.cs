@@ -1,7 +1,8 @@
 ﻿using HairSalonManagement.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
+using System.Security.Claims;
 
 namespace HairSalonManagement.Controllers
 {
@@ -14,47 +15,78 @@ namespace HairSalonManagement.Controllers
 			_context = context;
 		}
 
-		// Kullanıcı Giriş Sayfası
+		// Register sayfasını göstermek için GET
+		[HttpGet]
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		// Kullanıcı kaydı (POST)
+		[HttpPost]
+		public async Task<IActionResult> Register(Kullanici kullanici)
+		{
+			if (!ModelState.IsValid)
+			{
+				TempData["ErrorMessage"] = "Lütfen tüm alanları doğru şekilde doldurun.";
+				return View(kullanici);
+			}
+
+			try
+			{
+				await _context.Kullanicilar.AddAsync(kullanici);
+				await _context.SaveChangesAsync();
+				TempData["SuccessMessage"] = "Kaydınız başarıyla tamamlandı!";
+				return RedirectToAction("Login");
+			}
+			catch (Exception ex)
+			{
+				TempData["ErrorMessage"] = "Bir hata oluştu: " + ex.Message;
+				return View(kullanici);
+			}
+		}
+
+		// Giriş sayfası (GET)
+		[HttpGet]
 		public IActionResult Login()
 		{
 			return View();
 		}
 
-		// Kullanıcı Giriş İşlemi
+		// Kullanıcı girişi (POST)
 		[HttpPost]
-		public IActionResult Login(string email, string sifre)
+		public async Task<IActionResult> Login(string email, string password)
 		{
-			// Kullanıcı doğrulama
-			var user = _context.Kullanicilar.FirstOrDefault(k => k.Email == email && k.Sifre == sifre);
+			var kullanici = _context.Kullanicilar.FirstOrDefault(k => k.Email == email);
 
-			// Eğer kullanıcı bulunursa
-			if (user != null)
+			if (kullanici != null && kullanici.Sifre == password)
 			{
-				// Oturum bilgilerini kaydet (Session)
-				HttpContext.Session.SetString("UserEmail", email);
-				HttpContext.Session.SetString("UserRole", "User"); // Varsayılan olarak normal kullanıcı
-
-				// Admin doğrulaması
-				if (email == "admin@gmail.com" && sifre == "sau")
+				// Claims oluştur
+				var claims = new List<Claim>
 				{
-					HttpContext.Session.SetString("UserRole", "Admin");
-				}
+					new Claim(ClaimTypes.Name, kullanici.Isim),
+					new Claim(ClaimTypes.Email, kullanici.Email),
+					new Claim("KullaniciId", kullanici.KullaniciId.ToString())
+				};
 
-				// Kullanıcıyı ilgili panele yönlendir
+				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+				var principal = new ClaimsPrincipal(identity);
+
+				// Oturum başlat
+				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
 				return RedirectToAction("Index", "Home");
 			}
-
-			// Eğer giriş başarısız olursa hata mesajı
-			TempData["ErrorMessage"] = "E-posta veya şifre hatalı.";
+			
+			ViewBag.Error = "Geçersiz email veya şifre.";
 			return View();
 		}
 
-		// Çıkış Yapma İşlemi
-		public IActionResult Logout()
+		// Çıkış işlemi
+		public async Task<IActionResult> Logout()
 		{
-			// Session temizleme (oturum kapatma)
-			HttpContext.Session.Clear();
-			return RedirectToAction("Login");
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }

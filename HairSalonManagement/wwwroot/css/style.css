@@ -162,6 +162,7 @@ body {
         color: #ffffff;
         margin-top: 50px;
     }
+
     .inner_text h6 {
         font-family: 'Montserrat';
         font-size: 120px;
@@ -436,4 +437,3 @@ body {
 .img5:hover .text_box5 {
     opacity: 1;
 }
-

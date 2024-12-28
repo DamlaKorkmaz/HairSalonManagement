@@ -23,7 +23,6 @@
 		[MinLength(6, ErrorMessage = "Şifre en az 6 karakter olmalıdır.")]
 		public string Sifre { get; set; }
 
-		// Kullanıcının sahip olduğu randevular
-		public ICollection<Randevu> Randevular { get; set; }
+		
 	}
 }

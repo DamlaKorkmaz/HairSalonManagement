@@ -1,19 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Giriş Yap";
+    ViewBag.Title = "Giriş Yap";
 }
 
 <h2>Giriş Yap</h2>
 
-<form method="post" asp-action="Login">
-    <div class="mb-3">
-        <label for="email" class="form-label">E-posta:</label>
-        <input type="email" id="email" name="email" class="form-control" required />
+<form asp-action="Login" method="post">
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required />
     </div>
-    <div class="mb-3">
-        <label for="sifre" class="form-label">Şifre:</label>
-        <input type="password" id="sifre" name="sifre" class="form-control" required />
+    <div>
+        <label>Şifre</label>
+        <input type="password" name="password" required />
     </div>
-    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+    <button type="submit">Giriş Yap</button>
 </form>
 
-<p class="text-danger">@TempData["ErrorMessage"]</p>
+@if (ViewBag.Error != null)
+{
+    <p style="color: red;">@ViewBag.Error</p>
+}

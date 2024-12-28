@@ -1,19 +1,64 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+  @using Microsoft.AspNetCore.Http
+@{
+    var kullaniciId = Context.Request.Cookies["KullaniciId"];
+    var Isim = Context.Request.Cookies["Isim"];
+}
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HairSalonManagement</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HairSalonManagement.styles.css" asp-append-version="true" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar tasarımı için ek stil */
+        .navbar {
+            background-color: #4CAF50; /* Modern bir yeşil ton */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: hotpink !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: lightpink !important;
+            margin-right: 15px;
+            transition: color 0.3s ease-in-out;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #FFD700 !important; /* Altın renk hover efekti */
+            }
+
+        .btn-register {
+            background-color: #FFD700;
+            color: black;
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+
+            .btn-register:hover {
+                background-color: #FFA500; /* Daha koyu altın hover efekti */
+                color: white;
+            }
+    </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-color: #fff8f5; border-bottom: 1px solid #ddd;">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <!-- Add image here -->
+                    <!-- Logo -->
                     <img src="~/images/logo3.png" alt="Beauty Salon" height="40" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -26,31 +71,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Admin/Index">Admin Paneli</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hakkımızda">Hakkımızda</a>
                         </li>
-                    </ul>
-                    <!-- Login and Register Buttons -->
-                    <ul class="navbar-nav ml-auto">
-                        @if (TempData["IsAdminLoggedIn"] != null)
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Register">Kaydol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Randevu" asp-action="Al">Randevu Al</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <!-- Admin Paneli ve Logout -->
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Admin Paneli</a>
+                                <span class="nav-link text-dark">Hoş geldin, @User.Identity.Name!</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Auth" asp-action="Logout">Çıkış Yap</a>
-                            </li>
-                        }
-                        else if (TempData["IsLoggedIn"] != null)
-                        {
-                            <!-- Kullanıcı Logout -->
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Auth" asp-action="Logout">Çıkış Yap</a>
+                                <form asp-controller="Auth" asp-action="Logout" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-link nav-link text-dark" style="border: none; background: none;">Çıkış Yap</button>
+                                </form>
                             </li>
                         }
                         else
                         {
-                            <!-- Login -->
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">Giriş Yap</a>
                             </li>
@@ -67,14 +108,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - HairSalonManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+ 
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

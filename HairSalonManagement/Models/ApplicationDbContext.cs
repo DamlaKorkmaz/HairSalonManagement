@@ -30,11 +30,11 @@ namespace HairSalonManagement.Models
 		{
 			base.OnModelCreating(modelBuilder);
 
-			// Randevu ile Kullanıcı ilişkisi
+			/*// Randevu ile Kullanıcı ilişkisi
 			modelBuilder.Entity<Randevu>()
 				.HasOne(r => r.Kullanici)
 				.WithMany(k => k.Randevular)
-				.HasForeignKey(r => r.KullaniciId);
+				.HasForeignKey(r => r.KullaniciId);*/
 
 			// Randevu ile Uzman ilişkisi
 			/*modelBuilder.Entity<Randevu>()

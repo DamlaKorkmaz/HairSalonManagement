@@ -28,6 +28,14 @@ namespace HairSalonManagement.Controllers
 			return View(uzmanlar);
 		}
 
+		// Uzmanları listeleme sayfası
+		[HttpGet]
+		public async Task<IActionResult> ManageUsers()
+		{
+			var kullanici = await _context.Kullanicilar.ToListAsync();
+			return View(kullanici);
+		}
+
 		// Uzman ekleme sayfasını göster
 		[HttpGet]
 		public IActionResult AddUzman()

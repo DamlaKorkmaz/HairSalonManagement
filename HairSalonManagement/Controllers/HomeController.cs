@@ -17,42 +17,8 @@ namespace HairSalonManagement.Controllers
         {
 			return View();
 		}
-		// Randevu Alma Sayfası (Giriş yapmamış kullanıcı erişemez)
-		public IActionResult Randevu()
-		{
-			var userRole = HttpContext.Session.GetString("UserRole");
 
-			if (string.IsNullOrEmpty(userRole))
-			{
-				return RedirectToAction("Login", "Auth");
-			}
-
-			return View(); // Randevu sayfasını göster
-		}
-
-		// Kullanıcıyı yönlendiren sayfa
-		public IActionResult Dashboard()
-		{
-			var userRole = HttpContext.Session.GetString("UserRole");
-
-			if (string.IsNullOrEmpty(userRole))
-			{
-				return View(); // Genel kullanıcı sayfası
-			}
-
-			if (userRole == "Admin")
-			{
-				return RedirectToAction("AdminPanel", "Admin");
-			}
-			else if (userRole == "User")
-			{
-				return View(); // Kullanıcı panelini göster
-			}
-
-			return RedirectToAction("Login", "Auth");
-		}
-
-		public IActionResult Privacy()
+		public IActionResult Hakkımızda()
         {
             return View();
         }
