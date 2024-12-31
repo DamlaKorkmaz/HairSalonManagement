@@ -69,21 +69,18 @@ namespace HairSalonManagement.Controllers
 			// Eğer admin email ve şifre girilmişse
 			if (email == AdminEmail && password == AdminPassword)
 			{
-				// Admin için claims oluştur
 				var adminClaims = new List<Claim>
-		{
-			new Claim(ClaimTypes.Name, "Admin"),
-			new Claim(ClaimTypes.Email, AdminEmail),
-			new Claim(ClaimTypes.Role, "Admin") // Admin rolü
-        };
+	{
+		new Claim(ClaimTypes.Name, "Admin"),
+		new Claim(ClaimTypes.Email, AdminEmail),
+		new Claim(ClaimTypes.Role, "Admin") // Admin role
+    };
 
 				var adminIdentity = new ClaimsIdentity(adminClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 				var adminPrincipal = new ClaimsPrincipal(adminIdentity);
 
-				// Oturum başlat
 				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, adminPrincipal);
 
-				// Admin paneline yönlendir
 				return RedirectToAction("Index", "Admin");
 			}
 

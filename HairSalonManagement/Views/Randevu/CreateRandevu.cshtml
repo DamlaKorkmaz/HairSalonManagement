@@ -1,40 +1,54 @@
-﻿@model HairSalonManagement.Models.Randevu
-
-@{
+﻿@{
     ViewData["Title"] = "Randevu Oluştur";
 }
 
-<div class="container mt-4">
-    <h2>Randevu Al</h2>
-    <form asp-action="CreateRandevu" method="post">
-        <div class="form-group">
-            <label for="Isim">Adınız</label>
-            <input type="text" class="form-control" id="Isim" name="Isim" value="@Model?.Isim" required />
-        </div>
-        <div class="form-group">
-            <label for="Soyisim">Soyadınız</label>
-            <input type="text" class="form-control" id="Soyisim" name="Soyisim" value="@Model?.Soyisim" required />
-        </div>
-        <div class="form-group">
-            <label for="Telefon">Telefon Numaranız</label>
-            <input type="text" class="form-control" id="Telefon" name="Telefon" value="@Model?.Telefon" required />
-        </div>
-        <div class="form-group">
-            <label for="UzmanIsim">Uzman Seçin</label>
-            <select class="form-control" id="UzmanIsim" name="UzmanIsim">
-                @foreach (var uzman in ViewBag.Uzmanlar)
-                {
-                    <option value="@uzman.Isim">@uzman.Isim</option>
-                }
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Randevu Al</button>
-    </form>
+<h2>Randevu Oluştur</h2>
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success mt-3">
-            @TempData["SuccessMessage"]
-        </div>
-    }
-</div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="isim">İsim</label>
+        <input type="text" id="isim" name="isim" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="soyisim">Soyisim</label>
+        <input type="text" id="soyisim" name="soyisim" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="telefon">Telefon</label>
+        <input type="text" id="telefon" name="telefon" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-posta</label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="uzman">Uzman Seç</label>
+        <select id="uzman" name="uzmanIsim" class="form-control" required>
+            <option value="">Bir uzman seçin</option>
+            @foreach (var uzman in ViewBag.Uzmanlar)
+            {
+                <option value="@uzman.Isim">@uzman.Isim</option>
+            }
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Randevu Oluştur</button>
+</form>

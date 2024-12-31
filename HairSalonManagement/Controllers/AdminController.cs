@@ -1,9 +1,11 @@
 ﻿using HairSalonManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HairSalonManagement.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class AdminController : BaseController
 	{
 		private readonly ApplicationDbContext _context;

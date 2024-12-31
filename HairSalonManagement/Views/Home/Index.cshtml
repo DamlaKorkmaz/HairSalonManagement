@@ -34,7 +34,42 @@
     <br>
     <br>
 
+    <br />
 
+    <div class="container" style="max-width: 600px; margin: 0 auto; margin-top: 20px; font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div class="card">
+            <div class="card-header" style="background-color: lightpink; color: white; text-align: center; font-size: 1.5rem; font-weight: bold; padding: 10px; border-radius: 8px 8px 0 0;">
+                <h3>Yapay Zeka ile Saç Modeli Önerisi</h3>
+            </div>
+            
+                <form asp-action="GetSuggestion" method="post">
+                    <div class="mb-3">
+                        <label for="userDescription" style="font-size: 1rem; font-weight: bold;">Yüz ve Saç Tipinizi Açıklayın:</label>
+                        <textarea id="userDescription" name="userDescription" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ced4da; resize: none;" placeholder="Örneğin: Oval yüzüm var ve saçlarım dalgalı."></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" style="background-color:lightpink; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease;">Öneri Al</button>
+                        <br />
+                    </div>
+                </form>
+            
+        </div>
+
+        @if (ViewBag.Suggestion != null)
+        {
+            <div class="card" style="margin-top: 20px; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <div class="card-header" style="background-color: pink; color: white; text-align: center; font-size: 1.2rem; font-weight: bold; border-radius: 8px 8px 0 0;">
+                    <h4>Öneriniz</h4>
+                </div>
+                <div class="card-body" style="padding: 15px; font-size: 1.1rem; line-height: 1.6;">
+                    <p>@ViewBag.Suggestion</p>
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+    <br />
+    <br />
 </body>
 </html>
 

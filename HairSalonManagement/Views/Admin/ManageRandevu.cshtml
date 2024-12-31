@@ -1,37 +1,103 @@
-﻿@model IEnumerable<HairSalonManagement.Models.Randevu>
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevular</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJv9+Kx7JWJdJv1m9XfXwVeE6PfgYeMj6uUlX1+g4e6D5Ixn8Ibgw9N4fUnf" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
 
-@{
-    ViewData["Title"] = "Randevu Yönetimi";
-}
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 24px;
+        }
 
-<div class="container mt-4">
-    <h2>Randevu Yönetimi</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>İsim</th>
-                <th>Soyisim</th>
-                <th>Telefon</th>
-                <th>Uzman</th> <!-- Uzman isim alanı -->
-                <th>Randevu Tarihi</th> <!-- Randevu tarihi -->
-                <th>İşlemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var randevu in Model)
-            {
+        .container {
+            margin-top: 50px;
+        }
+
+        table {
+            background-color: #ffffff;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #eaeaea;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Randevu Yönetimi</h2>
+        
+        <table id="randevuTablo" class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@randevu.Isim</td>
-                    <td>@randevu.Soyisim</td>
-                    <td>@randevu.Telefon</td>
-                    <td>@randevu.UzmanIsim</td> <!-- Uzman ismini burada gösteriyoruz -->
-                    <td>@randevu.RandevuTarihi.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>
-                        <a href="/Admin/EditRandevu/@randevu.RandevuId" class="btn btn-warning btn-sm">Düzenle</a>
-                        <a href="/Admin/DeleteRandevu/@randevu.RandevuId" class="btn btn-danger btn-sm">Sil</a>
-                    </td>
+                    <th>İsim</th>
+                    <th>Soyisim</th>
+                    <th>Telefon</th>
+                    <th>Uzman</th>
+                    <th>Randevu Tarihi</th>
+                    <th>İşlemler</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                <!-- API'den veri çekilecek ve burada listeleme yapılacak -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Randevuları API'den almak için Fetch kullanıyoruz
+        fetch('/api/adminapi/randevular')
+            .then(response => response.json())
+            .then(data => {
+                const tablo = document.querySelector("#randevuTablo tbody");
+                data.forEach(randevu => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${randevu.isim}</td>
+                        <td>${randevu.soyisim}</td>
+                        <td>${randevu.telefon}</td>
+                        <td>${randevu.uzmanIsim}</td>
+                        <td>${new Date(randevu.randevuTarihi).toLocaleString()}</td>
+                        <td>
+                            <a href="/Admin/EditRandevu/${randevu.randevuId}" class="btn btn-warning btn-sm">Düzenle</a>
+                            <a href="/Admin/DeleteRandevu/${randevu.randevuId}" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    `;
+                    tablo.appendChild(tr);
+                });
+            })
+            .catch(error => console.error('Hata:', error));
+    </script>
+
+</body>
+</html>
